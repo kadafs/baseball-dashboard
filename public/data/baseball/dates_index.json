@@ -1,0 +1,14 @@
+{
+  "dates": [
+    {
+      "date": "2026-06-17",
+      "generic": true,
+      "confirmed": true
+    },
+    {
+      "date": "2026-06-16",
+      "generic": false,
+      "confirmed": true
+    }
+  ]
+}
