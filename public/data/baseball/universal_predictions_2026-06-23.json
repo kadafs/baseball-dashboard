@@ -15,7 +15,7 @@
                 "home": {
                     "name": "Shane Bieber",
                     "hand": "R",
-                    "fip": 4.5
+                    "fip": 4.4
                 }
             },
             "environment": {
@@ -35,29 +35,36 @@
                     "weather_label": "72F | 8 MPH R-L | Weather: +0.3%"
                 },
                 "effective_pf": 1.003,
-                "umpire": null
+                "umpire": {
+                    "name": "Brian Walsh",
+                    "profile": {
+                        "games_called": 0,
+                        "raw_k_mod": 1.0,
+                        "raw_bb_mod": 1.0
+                    }
+                }
             },
             "lineups_status": "Projected (Generic)",
             "predictions": {
-                "top_down_f5": 5.0,
-                "mc_f5": 5.58,
-                "mc_f5_away": 2.38,
-                "mc_f5_home": 3.2,
-                "mc_late": 2.95,
-                "mc_full_game": 8.53
+                "top_down_f5": 4.95,
+                "mc_f5": 5.23,
+                "mc_f5_away": 2.36,
+                "mc_f5_home": 2.88,
+                "mc_late": 2.94,
+                "mc_full_game": 8.18
             },
             "probabilities": {
-                "under_3_5": 0.316,
-                "under_4_5": 0.432,
-                "under_5_5": 0.549,
-                "full_over_7_5": 0.619,
-                "full_over_8_5": 0.482,
-                "full_over_9_5": 0.352
+                "under_3_5": 0.34,
+                "under_4_5": 0.464,
+                "under_5_5": 0.583,
+                "full_over_7_5": 0.572,
+                "full_over_8_5": 0.433,
+                "full_over_9_5": 0.307
             },
             "action_matrix": {
                 "adv_3_5": "Bet **OVER** (HIGH)",
                 "adv_4_5": "Bet **OVER** (MODERATE)",
-                "adv_5_5": "Bet **UNDER** (MODERATE)"
+                "adv_5_5": "Bet **UNDER** (HIGH)"
             },
             "version": "v3"
         },
@@ -98,19 +105,19 @@
             "lineups_status": "Projected (Generic)",
             "predictions": {
                 "top_down_f5": 4.29,
-                "mc_f5": 3.97,
-                "mc_f5_away": 1.55,
+                "mc_f5": 3.99,
+                "mc_f5_away": 1.57,
                 "mc_f5_home": 2.42,
-                "mc_late": 2.7,
-                "mc_full_game": 6.67
+                "mc_late": 2.66,
+                "mc_full_game": 6.65
             },
             "probabilities": {
-                "under_3_5": 0.503,
-                "under_4_5": 0.629,
-                "under_5_5": 0.733,
-                "full_over_7_5": 0.352,
-                "full_over_8_5": 0.229,
-                "full_over_9_5": 0.138
+                "under_3_5": 0.498,
+                "under_4_5": 0.632,
+                "under_5_5": 0.735,
+                "full_over_7_5": 0.349,
+                "full_over_8_5": 0.226,
+                "full_over_9_5": 0.136
             },
             "action_matrix": {
                 "adv_3_5": "Skip",
@@ -156,19 +163,19 @@
             "lineups_status": "Projected (Generic)",
             "predictions": {
                 "top_down_f5": 4.35,
-                "mc_f5": 4.34,
-                "mc_f5_away": 2.26,
-                "mc_f5_home": 2.08,
-                "mc_late": 3.13,
-                "mc_full_game": 7.47
+                "mc_f5": 4.33,
+                "mc_f5_away": 2.28,
+                "mc_f5_home": 2.05,
+                "mc_late": 3.08,
+                "mc_full_game": 7.41
             },
             "probabilities": {
-                "under_3_5": 0.451,
-                "under_4_5": 0.581,
-                "under_5_5": 0.689,
-                "full_over_7_5": 0.47,
-                "full_over_8_5": 0.333,
-                "full_over_9_5": 0.22
+                "under_3_5": 0.454,
+                "under_4_5": 0.582,
+                "under_5_5": 0.691,
+                "full_over_7_5": 0.462,
+                "full_over_8_5": 0.325,
+                "full_over_9_5": 0.213
             },
             "action_matrix": {
                 "adv_3_5": "Bet **OVER** (MODERATE)",
@@ -214,19 +221,19 @@
             "lineups_status": "Projected (Generic)",
             "predictions": {
                 "top_down_f5": 5.07,
-                "mc_f5": 5.96,
-                "mc_f5_away": 3.84,
-                "mc_f5_home": 2.12,
-                "mc_late": 3.08,
-                "mc_full_game": 9.04
+                "mc_f5": 5.88,
+                "mc_f5_away": 3.74,
+                "mc_f5_home": 2.14,
+                "mc_late": 3.1,
+                "mc_full_game": 8.98
             },
             "probabilities": {
                 "under_3_5": 0.274,
-                "under_4_5": 0.388,
-                "under_5_5": 0.502,
-                "full_over_7_5": 0.681,
-                "full_over_8_5": 0.55,
-                "full_over_9_5": 0.418
+                "under_4_5": 0.391,
+                "under_5_5": 0.507,
+                "full_over_7_5": 0.674,
+                "full_over_8_5": 0.542,
+                "full_over_9_5": 0.41
             },
             "action_matrix": {
                 "adv_3_5": "Bet **OVER** (HIGH)",
@@ -272,19 +279,19 @@
             "lineups_status": "Projected (Generic)",
             "predictions": {
                 "top_down_f5": 4.51,
-                "mc_f5": 4.78,
-                "mc_f5_away": 2.52,
-                "mc_f5_home": 2.25,
-                "mc_late": 3.48,
-                "mc_full_game": 8.25
+                "mc_f5": 4.88,
+                "mc_f5_away": 2.57,
+                "mc_f5_home": 2.31,
+                "mc_late": 3.43,
+                "mc_full_game": 8.31
             },
             "probabilities": {
-                "under_3_5": 0.403,
-                "under_4_5": 0.528,
-                "under_5_5": 0.635,
-                "full_over_7_5": 0.582,
-                "full_over_8_5": 0.443,
-                "full_over_9_5": 0.315
+                "under_3_5": 0.389,
+                "under_4_5": 0.518,
+                "under_5_5": 0.633,
+                "full_over_7_5": 0.59,
+                "full_over_8_5": 0.451,
+                "full_over_9_5": 0.323
             },
             "action_matrix": {
                 "adv_3_5": "Bet **OVER** (HIGH)",
@@ -330,19 +337,19 @@
             "lineups_status": "Projected (Generic)",
             "predictions": {
                 "top_down_f5": 5.01,
-                "mc_f5": 5.48,
-                "mc_f5_away": 1.53,
-                "mc_f5_home": 3.95,
-                "mc_late": 3.2,
-                "mc_full_game": 8.68
+                "mc_f5": 5.52,
+                "mc_f5_away": 1.55,
+                "mc_f5_home": 3.97,
+                "mc_late": 3.12,
+                "mc_full_game": 8.64
             },
             "probabilities": {
-                "under_3_5": 0.328,
-                "under_4_5": 0.448,
-                "under_5_5": 0.564,
-                "full_over_7_5": 0.637,
-                "full_over_8_5": 0.501,
-                "full_over_9_5": 0.37
+                "under_3_5": 0.32,
+                "under_4_5": 0.436,
+                "under_5_5": 0.548,
+                "full_over_7_5": 0.633,
+                "full_over_8_5": 0.496,
+                "full_over_9_5": 0.366
             },
             "action_matrix": {
                 "adv_3_5": "Bet **OVER** (HIGH)",
@@ -388,19 +395,19 @@
             "lineups_status": "Projected (Generic)",
             "predictions": {
                 "top_down_f5": 4.8,
-                "mc_f5": 5.99,
-                "mc_f5_away": 2.45,
-                "mc_f5_home": 3.54,
-                "mc_late": 2.87,
-                "mc_full_game": 8.86
+                "mc_f5": 5.97,
+                "mc_f5_away": 2.47,
+                "mc_f5_home": 3.51,
+                "mc_late": 2.93,
+                "mc_full_game": 8.91
             },
             "probabilities": {
                 "under_3_5": 0.28,
-                "under_4_5": 0.397,
-                "under_5_5": 0.507,
-                "full_over_7_5": 0.66,
-                "full_over_8_5": 0.526,
-                "full_over_9_5": 0.395
+                "under_4_5": 0.389,
+                "under_5_5": 0.5,
+                "full_over_7_5": 0.666,
+                "full_over_8_5": 0.533,
+                "full_over_9_5": 0.401
             },
             "action_matrix": {
                 "adv_3_5": "Bet **OVER** (HIGH)",
@@ -446,19 +453,19 @@
             "lineups_status": "Projected (Generic)",
             "predictions": {
                 "top_down_f5": 5.85,
-                "mc_f5": 7.37,
-                "mc_f5_away": 4.49,
-                "mc_f5_home": 2.88,
-                "mc_late": 3.98,
-                "mc_full_game": 11.35
+                "mc_f5": 7.4,
+                "mc_f5_away": 4.51,
+                "mc_f5_home": 2.9,
+                "mc_late": 3.97,
+                "mc_full_game": 11.38
             },
             "probabilities": {
-                "under_3_5": 0.191,
-                "under_4_5": 0.278,
-                "under_5_5": 0.373,
-                "full_over_7_5": 0.878,
-                "full_over_8_5": 0.798,
-                "full_over_9_5": 0.697
+                "under_3_5": 0.179,
+                "under_4_5": 0.273,
+                "under_5_5": 0.37,
+                "full_over_7_5": 0.88,
+                "full_over_8_5": 0.8,
+                "full_over_9_5": 0.699
             },
             "action_matrix": {
                 "adv_3_5": "Bet **OVER** (HIGH)",
@@ -504,19 +511,19 @@
             "lineups_status": "Projected (Generic)",
             "predictions": {
                 "top_down_f5": 4.43,
-                "mc_f5": 6.0,
-                "mc_f5_away": 1.97,
-                "mc_f5_home": 4.03,
-                "mc_late": 3.14,
-                "mc_full_game": 9.14
+                "mc_f5": 6.04,
+                "mc_f5_away": 1.96,
+                "mc_f5_home": 4.08,
+                "mc_late": 3.13,
+                "mc_full_game": 9.17
             },
             "probabilities": {
-                "under_3_5": 0.289,
-                "under_4_5": 0.401,
+                "under_3_5": 0.292,
+                "under_4_5": 0.404,
                 "under_5_5": 0.506,
-                "full_over_7_5": 0.692,
-                "full_over_8_5": 0.563,
-                "full_over_9_5": 0.431
+                "full_over_7_5": 0.696,
+                "full_over_8_5": 0.567,
+                "full_over_9_5": 0.436
             },
             "action_matrix": {
                 "adv_3_5": "Bet **OVER** (HIGH)",
@@ -562,19 +569,19 @@
             "lineups_status": "Projected (Generic)",
             "predictions": {
                 "top_down_f5": 4.7,
-                "mc_f5": 5.32,
-                "mc_f5_away": 1.59,
-                "mc_f5_home": 3.74,
-                "mc_late": 3.04,
-                "mc_full_game": 8.38
+                "mc_f5": 5.34,
+                "mc_f5_away": 1.57,
+                "mc_f5_home": 3.77,
+                "mc_late": 3.12,
+                "mc_full_game": 8.46
             },
             "probabilities": {
-                "under_3_5": 0.345,
-                "under_4_5": 0.466,
-                "under_5_5": 0.578,
-                "full_over_7_5": 0.598,
-                "full_over_8_5": 0.46,
-                "full_over_9_5": 0.331
+                "under_3_5": 0.34,
+                "under_4_5": 0.463,
+                "under_5_5": 0.573,
+                "full_over_7_5": 0.609,
+                "full_over_8_5": 0.471,
+                "full_over_9_5": 0.341
             },
             "action_matrix": {
                 "adv_3_5": "Bet **OVER** (HIGH)",
@@ -621,17 +628,17 @@
             "predictions": {
                 "top_down_f5": 4.08,
                 "mc_f5": 3.56,
-                "mc_f5_away": 1.62,
-                "mc_f5_home": 1.94,
-                "mc_late": 3.31,
+                "mc_f5_away": 1.64,
+                "mc_f5_home": 1.91,
+                "mc_late": 3.32,
                 "mc_full_game": 6.87
             },
             "probabilities": {
-                "under_3_5": 0.559,
+                "under_3_5": 0.558,
                 "under_4_5": 0.686,
-                "under_5_5": 0.79,
+                "under_5_5": 0.784,
                 "full_over_7_5": 0.382,
-                "full_over_8_5": 0.254,
+                "full_over_8_5": 0.255,
                 "full_over_9_5": 0.157
             },
             "action_matrix": {
@@ -679,18 +686,18 @@
             "predictions": {
                 "top_down_f5": 5.48,
                 "mc_f5": 7.34,
-                "mc_f5_away": 2.17,
+                "mc_f5_away": 2.18,
                 "mc_f5_home": 5.16,
-                "mc_late": 3.94,
-                "mc_full_game": 11.27
+                "mc_late": 4.0,
+                "mc_full_game": 11.34
             },
             "probabilities": {
-                "under_3_5": 0.183,
-                "under_4_5": 0.273,
-                "under_5_5": 0.367,
-                "full_over_7_5": 0.874,
-                "full_over_8_5": 0.791,
-                "full_over_9_5": 0.688
+                "under_3_5": 0.18,
+                "under_4_5": 0.267,
+                "under_5_5": 0.363,
+                "full_over_7_5": 0.877,
+                "full_over_8_5": 0.796,
+                "full_over_9_5": 0.695
             },
             "action_matrix": {
                 "adv_3_5": "Bet **OVER** (HIGH)",
@@ -736,19 +743,19 @@
             "lineups_status": "Projected (Generic)",
             "predictions": {
                 "top_down_f5": 5.31,
-                "mc_f5": 9.23,
-                "mc_f5_away": 2.26,
-                "mc_f5_home": 6.97,
+                "mc_f5": 9.26,
+                "mc_f5_away": 2.23,
+                "mc_f5_home": 7.03,
                 "mc_late": 3.43,
-                "mc_full_game": 12.66
+                "mc_full_game": 12.69
             },
             "probabilities": {
-                "under_3_5": 0.102,
-                "under_4_5": 0.167,
+                "under_3_5": 0.103,
+                "under_4_5": 0.168,
                 "under_5_5": 0.239,
-                "full_over_7_5": 0.936,
-                "full_over_8_5": 0.884,
-                "full_over_9_5": 0.81
+                "full_over_7_5": 0.937,
+                "full_over_8_5": 0.885,
+                "full_over_9_5": 0.813
             },
             "action_matrix": {
                 "adv_3_5": "Bet **OVER** (HIGH)",
@@ -794,19 +801,19 @@
             "lineups_status": "Projected (Generic)",
             "predictions": {
                 "top_down_f5": 5.29,
-                "mc_f5": 6.87,
-                "mc_f5_away": 4.12,
-                "mc_f5_home": 2.75,
-                "mc_late": 2.59,
-                "mc_full_game": 9.46
+                "mc_f5": 6.8,
+                "mc_f5_away": 4.06,
+                "mc_f5_home": 2.74,
+                "mc_late": 2.57,
+                "mc_full_game": 9.37
             },
             "probabilities": {
-                "under_3_5": 0.215,
-                "under_4_5": 0.311,
-                "under_5_5": 0.414,
-                "full_over_7_5": 0.727,
-                "full_over_8_5": 0.603,
-                "full_over_9_5": 0.473
+                "under_3_5": 0.225,
+                "under_4_5": 0.322,
+                "under_5_5": 0.419,
+                "full_over_7_5": 0.718,
+                "full_over_8_5": 0.592,
+                "full_over_9_5": 0.462
             },
             "action_matrix": {
                 "adv_3_5": "Bet **OVER** (HIGH)",
@@ -852,19 +859,19 @@
             "lineups_status": "Projected (Generic)",
             "predictions": {
                 "top_down_f5": 5.25,
-                "mc_f5": 6.88,
-                "mc_f5_away": 3.54,
-                "mc_f5_home": 3.33,
-                "mc_late": 3.29,
-                "mc_full_game": 10.16
+                "mc_f5": 6.95,
+                "mc_f5_away": 3.61,
+                "mc_f5_home": 3.34,
+                "mc_late": 3.28,
+                "mc_full_game": 10.23
             },
             "probabilities": {
-                "under_3_5": 0.204,
-                "under_4_5": 0.301,
-                "under_5_5": 0.414,
-                "full_over_7_5": 0.794,
-                "full_over_8_5": 0.685,
-                "full_over_9_5": 0.563
+                "under_3_5": 0.202,
+                "under_4_5": 0.3,
+                "under_5_5": 0.401,
+                "full_over_7_5": 0.8,
+                "full_over_8_5": 0.692,
+                "full_over_9_5": 0.57
             },
             "action_matrix": {
                 "adv_3_5": "Bet **OVER** (HIGH)",
