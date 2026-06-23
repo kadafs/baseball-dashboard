@@ -472,6 +472,7 @@ export default function App() {
           {error && <div className="error-state">{error}</div>}
 
           {!loading && !error && (
+            <>
               {/* All / Filtered games */}
               <section>
                 <div className="section-header">
