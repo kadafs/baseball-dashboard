@@ -172,6 +172,17 @@ function GameCard({ game }) {
           </div>
         )}
 
+        {/* TD-Anchor Clamp warning */}
+        {p.td_clamp_applied && (
+          <div className="clamp-banner">
+            <span className="clamp-icon">⚡</span>
+            <span className="clamp-text">
+              <strong>Lower Conviction</strong> — MC diverged from Top-Down model.
+              Reduce bet size or require stronger line edge.
+            </span>
+          </div>
+        )}
+
         {/* Matchup */}
         <div className="matchup">
           <div className="team-block away">

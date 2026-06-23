@@ -746,3 +746,35 @@ body {
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 99px; }
+
+/* ── TD-Anchor Clamp Banner ─────────────────────────────────── */
+.clamp-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: var(--amber-dim);
+  border: 1px solid rgba(245, 158, 11, 0.30);
+  border-left: 3px solid var(--amber);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  animation: clamp-pulse 2.5s ease-in-out infinite;
+}
+.clamp-icon {
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.clamp-text {
+  font-size: 0.74rem;
+  line-height: 1.45;
+  color: var(--amber);
+}
+.clamp-text strong {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+@keyframes clamp-pulse {
+  0%, 100% { border-left-color: var(--amber); box-shadow: none; }
+  50%       { border-left-color: #fbbf24;    box-shadow: 0 0 8px rgba(245,158,11,0.25); }
+}
