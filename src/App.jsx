@@ -472,23 +472,6 @@ export default function App() {
           {error && <div className="error-state">{error}</div>}
 
           {!loading && !error && (
-            <>
-              {/* Priority section */}
-              {!anyActive && priorityGames.length > 0 && (
-                <section className="priority-section">
-                  <div className="priority-title">
-                    <div className="pulse-dot" />
-                    Top Priority Games
-                    <span style={{ fontSize: '0.75rem', color: 'var(--text-3)', fontWeight: 500, marginLeft: '0.5rem' }}>
-                      ({priorityGames.length})
-                    </span>
-                  </div>
-                  <div className="games-grid">
-                    {priorityGames.map((g, i) => <GameCard key={`p-${i}`} game={g} />)}
-                  </div>
-                </section>
-              )}
-
               {/* All / Filtered games */}
               <section>
                 <div className="section-header">
