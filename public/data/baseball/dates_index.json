@@ -1,29 +1,31 @@
 {
   "dates": [
     {
-      "date": "2026-08-19",
-      "generic": true,
-      "confirmed": false
+      "date": "2026-08-19"
     },
     {
-      "date": "2026-06-19",
-      "generic": true,
-      "confirmed": false
+      "date": "2026-06-23"
     },
     {
-      "date": "2026-06-18",
-      "generic": false,
-      "confirmed": true
+      "date": "2026-06-22"
     },
     {
-      "date": "2026-06-17",
-      "generic": true,
-      "confirmed": true
+      "date": "2026-06-21"
     },
     {
-      "date": "2026-06-16",
-      "generic": false,
-      "confirmed": true
+      "date": "2026-06-20"
+    },
+    {
+      "date": "2026-06-19"
+    },
+    {
+      "date": "2026-06-18"
+    },
+    {
+      "date": "2026-06-17"
+    },
+    {
+      "date": "2026-06-16"
     }
   ]
 }

@@ -331,7 +331,6 @@ function Sidebar({ filters, onToggle, games }) {
 export default function App() {
   const [dates, setDates]       = useState([]);
   const [selectedDate, setDate] = useState('');
-  const [mode, setMode]         = useState('confirmed');
   const [data, setData]         = useState(null);
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState(null);
@@ -349,7 +348,6 @@ export default function App() {
         if (d.dates?.length > 0) {
           setDates(d.dates);
           setDate(d.dates[0].date);
-          if (!d.dates[0].confirmed && d.dates[0].generic) setMode('generic');
         } else {
           setLoading(false);
           setError('No prediction data found.');
@@ -363,18 +361,11 @@ export default function App() {
     if (!selectedDate) return;
     setLoading(true); setError(null); setData(null);
 
-    const dateObj = dates.find(d => d.date === selectedDate);
-    if (dateObj && !dateObj[mode]) {
-      setError(`No ${mode} data for ${selectedDate}.`);
-      setLoading(false);
-      return;
-    }
-
-    fetch(`/data/baseball/universal_predictions_${selectedDate}-${mode}.json`)
+    fetch(`/data/baseball/universal_predictions_${selectedDate}.json`)
       .then(r => { if (!r.ok) throw new Error(); return r.json(); })
       .then(d => { setData(d); setLoading(false); })
-      .catch(() => { setLoading(false); setError(`Failed to load data for ${selectedDate} (${mode}).`); });
-  }, [selectedDate, mode, dates]);
+      .catch(() => { setLoading(false); setError(`Failed to load data for ${selectedDate}.`); });
+  }, [selectedDate, dates]);
 
   const toggleFilter = (key) =>
     setFilters(f => ({ ...f, [key]: !f[key] }));
@@ -435,24 +426,6 @@ export default function App() {
               <option key={d.date} value={d.date}>{d.date}</option>
             ))}
           </select>
-
-          <div className="mode-toggle">
-            <button
-              className={`mode-btn ${mode === 'confirmed' ? 'active' : ''}`}
-              onClick={() => setMode('confirmed')}
-              disabled={!currentDateObj?.confirmed}
-              title={!currentDateObj?.confirmed ? 'No confirmed lineups for this date' : ''}
-            >
-              ✓ Confirmed
-            </button>
-            <button
-              className={`mode-btn ${mode === 'generic' ? 'active' : ''}`}
-              onClick={() => setMode('generic')}
-              disabled={!currentDateObj?.generic}
-            >
-              Generic
-            </button>
-          </div>
         </div>
       </header>
 

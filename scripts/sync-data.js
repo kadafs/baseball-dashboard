@@ -25,25 +25,15 @@ try {
     console.log(`⚠️ No prediction files found for baseball.`);
   }
 
-  const dateMap = new Map();
+  const dates = [];
 
   for (const file of files) {
-    // universal_predictions_2026-06-16-confirmed.json
-    // universal_predictions_2026-06-16-generic.json
-    const match = file.match(/universal_predictions_(\d{4}-\d{2}-\d{2})-(generic|confirmed)\.json/);
+    const match = file.match(/universal_predictions_(\d{4}-\d{2}-\d{2})\.json/);
     if (!match) continue;
     
     const dateStr = match[1];
-    const mode = match[2];
-    
-    if (!dateMap.has(dateStr)) {
-        dateMap.set(dateStr, { date: dateStr, generic: false, confirmed: false });
-    }
-    
-    dateMap.get(dateStr)[mode] = true;
+    dates.push({ date: dateStr });
   }
-
-  const dates = Array.from(dateMap.values());
 
   // Sort descending by date
   dates.sort((a, b) => b.date.localeCompare(a.date));
