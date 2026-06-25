@@ -509,7 +509,7 @@ body {
 /* ── Projections Grid ───────────────────────────────────────── */
 .proj-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1.1fr 1fr 1fr;
   gap: 0.5rem;
   background: rgba(0,0,0,0.25);
   border: 1px solid var(--border);
@@ -541,6 +541,23 @@ body {
   color: var(--text-1);
 }
 .proj-value.highlighted { color: var(--cyan); }
+
+/* Consensus cell — subtle top accent to signal it's the primary metric */
+.consensus-cell {
+  position: relative;
+  background: rgba(34, 211, 238, 0.05);
+  border-radius: var(--radius-sm);
+  padding: 2px 4px;
+}
+.consensus-cell::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: 20%; right: 20%;
+  height: 2px;
+  background: var(--cyan);
+  border-radius: 2px;
+  opacity: 0.7;
+}
 
 /* ── Probability Bars ───────────────────────────────────────── */
 .prob-section {
@@ -734,7 +751,7 @@ body {
 }
 @media (max-width: 800px) {
   .sidebar { display: none; }
-  .proj-grid { grid-template-columns: 1fr 1fr; }
+  .proj-grid { grid-template-columns: 1fr 1fr 1fr; }
   .header-logo h1 { display: none; }
 }
 @media (max-width: 500px) {
@@ -777,4 +794,58 @@ body {
 @keyframes clamp-pulse {
   0%, 100% { border-left-color: var(--amber); box-shadow: none; }
   50%       { border-left-color: #fbbf24;    box-shadow: 0 0 8px rgba(245,158,11,0.25); }
+}
+
+/* ── F5 Offense Form Banner ──────────────────────────────────── */
+.form-banner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  background: rgba(0,0,0,0.18);
+  border: 1px solid var(--border-2);
+  border-left: 3px solid var(--border-2);
+  border-radius: var(--radius-sm);
+  padding: 7px 10px;
+  margin-bottom: 10px;
+}
+.form-banner-label {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-right: 4px;
+}
+.form-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 20px;
+  padding: 3px 9px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: 1px solid;
+}
+.form-chip-sub {
+  font-size: 0.64rem;
+  font-weight: 400;
+  opacity: 0.75;
+}
+/* Cold offense (factor < 0.95) — blue tint */
+.form-cold {
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(59, 130, 246, 0.35);
+  color: #93c5fd;
+}
+/* Hot offense (factor > 1.05) — orange tint */
+.form-hot {
+  background: rgba(249, 115, 22, 0.12);
+  border-color: rgba(249, 115, 22, 0.35);
+  color: #fb923c;
+}
+
+/* Mobile: proj-grid back to 2-col, form-banner wraps */
+@media (max-width: 480px) {
+  .form-banner { flex-direction: column; align-items: flex-start; }
 }

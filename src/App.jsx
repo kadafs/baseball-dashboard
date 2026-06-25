@@ -175,13 +175,46 @@ function GameCard({ game }) {
         {/* TD-Anchor Clamp warning */}
         {p.td_clamp_applied && (
           <div className="clamp-banner">
-            <span className="clamp-icon">⚡</span>
+            <span className="clamp-icon">&#9889;</span>
             <span className="clamp-text">
-              <strong>Lower Conviction</strong> — MC diverged from Top-Down model.
+              <strong>Lower Conviction</strong> &mdash; MC diverged from Top-Down model.
               Reduce bet size or require stronger line edge.
             </span>
           </div>
         )}
+
+        {/* F5 Form Adjustment banner */}
+        {(() => {
+          const af = p.away_f5_form;
+          const hf = p.home_f5_form;
+          if (!af || !hf) return null;
+          const alerts = [];
+          if (af.factor < 0.88 || af.factor > 1.12) {
+            const isCold = af.factor < 0.95;
+            alerts.push(
+              <span key="af" className={`form-chip ${isCold ? 'form-cold' : 'form-hot'}`}>
+                {isCold ? '\u2744' : '\uD83D\uDD25'} {game.away_team}: {af.factor}x
+                <span className="form-chip-sub">avg {af.raw_avg} F5 runs</span>
+              </span>
+            );
+          }
+          if (hf.factor < 0.88 || hf.factor > 1.12) {
+            const isCold = hf.factor < 0.95;
+            alerts.push(
+              <span key="hf" className={`form-chip ${isCold ? 'form-cold' : 'form-hot'}`}>
+                {isCold ? '\u2744' : '\uD83D\uDD25'} {game.home_team}: {hf.factor}x
+                <span className="form-chip-sub">avg {hf.raw_avg} F5 runs</span>
+              </span>
+            );
+          }
+          if (alerts.length === 0) return null;
+          return (
+            <div className="form-banner">
+              <span className="form-banner-label">F5 Form</span>
+              {alerts}
+            </div>
+          );
+        })()}
 
         {/* Matchup */}
         <div className="matchup">
@@ -219,8 +252,14 @@ function GameCard({ game }) {
           </div>
           <div className="proj-cell">
             <span className="proj-label">MC F5</span>
-            <span className="proj-value highlighted">{p.mc_f5}</span>
+            <span className="proj-value">{p.mc_f5}</span>
           </div>
+          {p.consensus_f5 != null && (
+            <div className="proj-cell consensus-cell">
+              <span className="proj-label">Consensus</span>
+              <span className="proj-value highlighted">{p.consensus_f5}</span>
+            </div>
+          )}
           <div className="proj-cell">
             <span className="proj-label">Late Inn</span>
             <span className="proj-value">{p.mc_late}</span>
