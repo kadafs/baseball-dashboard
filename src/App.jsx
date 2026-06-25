@@ -18,8 +18,8 @@ function parseAction(adv) {
     const isR2 = adv.includes('R2');
     return {
       type: 'skip-lean',
-      conf: isR1 ? 'R1' : isR2 ? 'R2' : 'LEAN',
-      label: 'UNDER LEAN',
+      conf: isR1 ? 'LEAN R1' : isR2 ? 'LEAN R2' : 'LEAN',
+      label: 'UNDER',
     };
   }
 
