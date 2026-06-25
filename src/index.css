@@ -761,6 +761,9 @@ body {
 @media (max-width: 500px) {
   .main-content { padding: 1rem 0.75rem; }
   .action-matrix { grid-template-columns: 1fr; }
+  .team-name { font-size: 0.95rem; line-height: 1.2; word-wrap: break-word; }
+  .matchup { gap: 0.4rem; }
+  .pitcher-row { font-size: 0.65rem; flex-wrap: wrap; }
 }
 
 /* ── Scrollbar ──────────────────────────────────────────────── */
