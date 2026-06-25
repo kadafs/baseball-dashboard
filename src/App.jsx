@@ -12,6 +12,17 @@ function fipClass(fip) {
 
 function parseAction(adv) {
   if (!adv || adv === 'Skip') return { type: 'skip', conf: null, label: 'SKIP' };
+
+  if (adv.includes('Under Lean')) {
+    const isR1 = adv.includes('R1');
+    const isR2 = adv.includes('R2');
+    return {
+      type: 'skip-lean',
+      conf: isR1 ? 'R1' : isR2 ? 'R2' : 'LEAN',
+      label: 'UNDER LEAN',
+    };
+  }
+
   const isOver  = adv.includes('OVER');
   const isUnder = adv.includes('UNDER');
   const isHigh  = adv.includes('HIGH');

@@ -655,6 +655,7 @@ body {
 .action-cell.bet-over  .action-verdict { color: var(--green); }
 .action-cell.bet-under .action-verdict { color: var(--blue); }
 .action-cell.skip      .action-verdict { color: var(--text-3); }
+.action-cell.skip-lean .action-verdict { color: var(--amber); font-size: 0.95rem; }
 
 .action-conf {
   font-size: 0.6rem;
@@ -666,6 +667,9 @@ body {
 }
 .conf-HIGH     { background: rgba(16,185,129,0.15); color: var(--green); }
 .conf-MODERATE { background: rgba(245,158,11,0.12); color: var(--amber); }
+.conf-R1       { background: rgba(245,158,11,0.15); color: var(--amber); }
+.conf-R2       { background: rgba(245,158,11,0.15); color: var(--amber); }
+.conf-LEAN     { background: rgba(245,158,11,0.15); color: var(--amber); }
 .conf-skip     { background: var(--surface-2); color: var(--text-3); }
 
 /* ── Priority Reasons ───────────────────────────────────────── */
