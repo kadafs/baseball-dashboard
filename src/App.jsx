@@ -23,6 +23,14 @@ function parseAction(adv) {
     };
   }
 
+  if (adv.includes('Team Bias Veto')) {
+    return { type: 'skip-veto', conf: 'TEAM BIAS', label: 'VETO' };
+  }
+
+  if (adv.includes('Roof Closed')) {
+    return { type: 'skip-roof', conf: 'ROOF PROTOCOL', label: 'SKIP' };
+  }
+
   const isOver  = adv.includes('OVER');
   const isUnder = adv.includes('UNDER');
   const isHigh  = adv.includes('HIGH');
@@ -61,6 +69,19 @@ function classifyGame(game) {
 
   if (hasStrongEdge && hasBet)
     reasons.push({ label: 'High Confidence Edge', type: 'edge-tag' });
+
+  // Priority flags for execution filters
+  if (game.predictions.asymmetric_warning) {
+    reasons.push({ label: 'Asymmetric Total', type: 'veto-tag' });
+  }
+  
+  const hasTeamBiasVeto = ['adv_3_5','adv_4_5','adv_5_5'].some(k => {
+    const a = action[k];
+    return a && a.includes('Team Bias Veto');
+  });
+  if (hasTeamBiasVeto) {
+    reasons.push({ label: 'Team Bias Veto', type: 'veto-tag' });
+  }
 
   return { isPriority: reasons.length > 0, reasons };
 }
@@ -190,6 +211,16 @@ function GameCard({ game }) {
             <span className="clamp-text">
               <strong>Lower Conviction</strong> &mdash; MC diverged from Top-Down model.
               Reduce bet size or require stronger line edge.
+            </span>
+          </div>
+        )}
+
+        {/* Asymmetric Total warning */}
+        {p.asymmetric_warning && (
+          <div className="asymmetric-banner">
+            <span className="asymmetric-icon">&#9888;</span>
+            <span className="asymmetric-text">
+              <strong>Asymmetric Total</strong> &mdash; F5 is {(p.f5_ratio * 100).toFixed(1)}% of full game total (Target: 51-53%). Verify SP baselines vs Bullpen.
             </span>
           </div>
         )}

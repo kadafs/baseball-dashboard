@@ -637,6 +637,14 @@ body {
 .action-cell.skip {
   opacity: 0.55;
 }
+.action-cell.skip-veto {
+  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.08);
+}
+.action-cell.skip-roof {
+  border-color: rgba(148, 163, 184, 0.4);
+  background: rgba(148, 163, 184, 0.08);
+}
 
 .action-line-tag {
   font-size: 0.62rem;
@@ -656,6 +664,8 @@ body {
 .action-cell.bet-under .action-verdict { color: var(--blue); }
 .action-cell.skip      .action-verdict { color: var(--text-3); }
 .action-cell.skip-lean .action-verdict { color: var(--amber); }
+.action-cell.skip-veto .action-verdict { color: var(--red); }
+.action-cell.skip-roof .action-verdict { color: var(--text-2); }
 
 .action-conf {
   font-size: 0.6rem;
@@ -671,6 +681,8 @@ body {
 .conf-LEAN\ R2 { background: rgba(245,158,11,0.15); color: var(--amber); }
 .conf-LEAN     { background: rgba(245,158,11,0.15); color: var(--amber); }
 .conf-skip     { background: var(--surface-2); color: var(--text-3); }
+.conf-TEAM\ BIAS { background: rgba(239, 68, 68, 0.15); color: var(--red); }
+.conf-ROOF\ PROTOCOL { background: rgba(148, 163, 184, 0.15); color: var(--text-2); }
 
 /* ── Priority Reasons ───────────────────────────────────────── */
 .priority-tags {
@@ -686,8 +698,9 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
-.p-tag.weather-tag  { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(245,158,11,0.25); }
-.p-tag.edge-tag     { background: var(--red-dim);   color: var(--red);   border: 1px solid rgba(239,68,68,0.25); }
+.p-tag.weather-tag { border-color: var(--amber); color: var(--amber); background: var(--amber-dim); }
+.p-tag.edge-tag { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+.p-tag.veto-tag { border-color: var(--red); color: var(--red); background: rgba(239, 68, 68, 0.1); }
 
 /* ── States ─────────────────────────────────────────────────── */
 .loading-state {
@@ -801,6 +814,33 @@ body {
 @keyframes clamp-pulse {
   0%, 100% { border-left-color: var(--amber); box-shadow: none; }
   50%       { border-left-color: #fbbf24;    box-shadow: 0 0 8px rgba(245,158,11,0.25); }
+}
+
+/* ── Asymmetric Total Banner ─────────────────────────────────── */
+.asymmetric-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: rgba(139, 92, 246, 0.08);
+  border: 1px solid rgba(139, 92, 246, 0.30);
+  border-left: 3px solid var(--purple);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  margin-bottom: 10px;
+}
+.asymmetric-icon {
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.asymmetric-text {
+  font-size: 0.74rem;
+  line-height: 1.45;
+  color: var(--purple);
+}
+.asymmetric-text strong {
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 /* ── F5 Offense Form Banner ──────────────────────────────────── */
