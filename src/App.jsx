@@ -220,7 +220,7 @@ function GameCard({ game }) {
           <div className="asymmetric-banner">
             <span className="asymmetric-icon">&#9888;</span>
             <span className="asymmetric-text">
-              <strong>Asymmetric Total</strong> &mdash; F5 is {(p.f5_ratio * 100).toFixed(1)}% of full game total (Target: 51-53%). Verify SP baselines vs Bullpen.
+              <strong>Asymmetric Total</strong> &mdash; F5 is {(p.f5_ratio * 100).toFixed(1)}% of full game total (Target: 55-60%). Verify SP baselines vs Bullpen.
             </span>
           </div>
         )}
