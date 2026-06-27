@@ -10,37 +10,7 @@ function fipClass(fip) {
   return 'fip-bad';
 }
 
-function parseAction(adv) {
-  if (!adv || adv === 'Skip') return { type: 'skip', conf: null, label: 'SKIP' };
-
-  if (adv.includes('Under Lean')) {
-    const isR1 = adv.includes('R1');
-    const isR2 = adv.includes('R2');
-    return {
-      type: 'skip-lean',
-      conf: isR1 ? 'LEAN R1' : isR2 ? 'LEAN R2' : 'LEAN',
-      label: 'UNDER',
-    };
-  }
-
-  if (adv.includes('Team Bias Veto')) {
-    return { type: 'skip-veto', conf: 'TEAM BIAS', label: 'VETO' };
-  }
-
-  if (adv.includes('Roof Closed')) {
-    return { type: 'skip-roof', conf: 'ROOF PROTOCOL', label: 'SKIP' };
-  }
-
-  const isOver  = adv.includes('OVER');
-  const isUnder = adv.includes('UNDER');
-  const isHigh  = adv.includes('HIGH');
-  const isMod   = adv.includes('MODERATE');
-  return {
-    type:  isOver ? 'bet-over' : isUnder ? 'bet-under' : 'skip',
-    conf:  isHigh ? 'HIGH' : isMod ? 'MODERATE' : null,
-    label: isOver ? 'OVER' : isUnder ? 'UNDER' : 'SKIP',
-  };
-}
+// Removed old parseAction logic
 
 function getFgClass(pct) {
   if (pct >= 60) return 'fg-high';
@@ -50,8 +20,7 @@ function getFgClass(pct) {
 
 function classifyGame(game) {
   const env    = game.environment;
-  const prob   = game.probabilities;
-  const action = game.action_matrix;
+  const gk     = game.gatekeeper_logic;
   const reasons = [];
 
   if (env.effective_pf) {
@@ -60,53 +29,62 @@ function classifyGame(game) {
       reasons.push({ label: `Weather ${pct > 0 ? '+' : ''}${pct.toFixed(1)}%`, type: 'weather-tag' });
   }
 
-  const hasStrongEdge =
-    prob.under_4_5 >= 0.58 || prob.under_4_5 <= 0.42;
-  const hasBet = ['adv_3_5','adv_4_5','adv_5_5'].some(k => {
-    const a = action[k];
-    return a && a !== 'Skip' && a.includes('Bet');
-  });
-
-  if (hasStrongEdge && hasBet)
-    reasons.push({ label: 'High Confidence Edge', type: 'edge-tag' });
-
-  // Priority flags for execution filters
-  if (game.predictions.asymmetric_warning) {
-    reasons.push({ label: 'Asymmetric Total', type: 'veto-tag' });
+  // Priority flags
+  if (gk && (gk.category === 'High-Value Strategy' || gk.category === 'High-Confidence')) {
+    reasons.push({ label: gk.category, type: 'edge-tag' });
   }
-  
-  const hasTeamBiasVeto = ['adv_3_5','adv_4_5','adv_5_5'].some(k => {
-    const a = action[k];
-    return a && a.includes('Team Bias Veto');
-  });
-  if (hasTeamBiasVeto) {
-    reasons.push({ label: 'Team Bias Veto', type: 'veto-tag' });
+
+  if (gk && gk.category === 'Quarantined') {
+    reasons.push({ label: 'Asymmetric Total', type: 'veto-tag' });
   }
 
   return { isPriority: reasons.length > 0, reasons };
 }
 
-// Count helpers for stats bar & filter counts
-function countActionType(games, type) {
-  return games.filter(g => {
-    const acts = ['adv_3_5','adv_4_5','adv_5_5'].map(k => parseAction(g.action_matrix[k]));
-    return acts.some(a => a.type === type);
-  }).length;
+// Count helper for stats bar & filter counts
+function countGkCategory(games, category) {
+  return games.filter(g => g.gatekeeper_logic?.category === category).length;
 }
 
 // ─────────────────────────────────────────────
 // Sub-components
 // ─────────────────────────────────────────────
-function ActionCell({ line, adv }) {
-  const a = parseAction(adv);
+function GatekeeperCell({ logic }) {
+  if (!logic || logic.category === "No Edge") return null;
+
+  let bgClass = "gatekeeper-neutral";
+  let icon = "📊";
+
+  if (logic.category === "Quarantined") {
+    bgClass = "gatekeeper-quarantined";
+    icon = "🚨";
+  } else if (logic.category === "High-Value Strategy") {
+    bgClass = "gatekeeper-strategy";
+    icon = "🎯";
+  } else if (logic.category === "High-Confidence") {
+    bgClass = "gatekeeper-confidence";
+    icon = "💎";
+  }
+
   return (
-    <div className={`action-cell ${a.type}`}>
-      <span className="action-line-tag">{line}</span>
-      <span className="action-verdict">{a.label}</span>
-      {a.conf
-        ? <span className={`action-conf conf-${a.conf}`}>{a.conf}</span>
-        : <span className="action-conf conf-skip">-</span>
-      }
+    <div className={`gatekeeper-cell ${bgClass}`}>
+      <div className="gatekeeper-header">
+        <span className="gatekeeper-icon">{icon}</span>
+        <span className="gatekeeper-category">{logic.category}</span>
+      </div>
+      {logic.reason && <div className="gatekeeper-reason">{logic.reason}</div>}
+      
+      {logic.lines && Object.keys(logic.lines).length > 0 && (
+        <div className="gatekeeper-lines">
+          {Object.entries(logic.lines).map(([line, info]) => (
+            <div key={line} className="gatekeeper-line-row">
+              <span className="gk-line">Line {line}:</span>
+              <span className={`gk-action ${info.action.includes('Skip') ? 'gk-skip' : 'gk-bet'}`}>{info.action}</span>
+              <span className="gk-reason">{info.reason}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -175,7 +153,7 @@ function GameCard({ game }) {
   const prob   = game.probabilities;
   const env    = game.environment;
   const pitch  = game.pitchers;
-  const action = game.action_matrix;
+  const gk     = game.gatekeeper_logic;
   const { isPriority, reasons } = classifyGame(game);
 
   const isConfirmed = game.lineups_status?.toLowerCase().includes('confirmed');
@@ -319,12 +297,8 @@ function GameCard({ game }) {
           <ProbBar label="5.5" under={prob.under_5_5} />
         </div>
 
-        {/* Action Matrix */}
-        <div className="action-matrix">
-          <ActionCell line="3.5" adv={action.adv_3_5} />
-          <ActionCell line="4.5" adv={action.adv_4_5} />
-          <ActionCell line="5.5" adv={action.adv_5_5} />
-        </div>
+        {/* Gatekeeper Engine */}
+        <GatekeeperCell logic={gk} />
 
         {/* Full Game Prob Strip */}
         <div className="fg-strip">
@@ -352,39 +326,24 @@ function GameCard({ game }) {
 // ─────────────────────────────────────────────
 function Sidebar({ filters, onToggle, games }) {
   const counts = {
-    over:     countActionType(games, 'bet-over'),
-    under:    countActionType(games, 'bet-under'),
-    skip:     games.filter(g => {
-                const acts = ['adv_3_5','adv_4_5','adv_5_5'].map(k => parseAction(g.action_matrix[k]));
-                return acts.every(a => a.type === 'skip');
-              }).length,
     priority: games.filter(g => classifyGame(g).isPriority).length,
     weather:  games.filter(g => {
                 const env = g.environment;
                 return env.effective_pf && Math.abs((env.effective_pf - 1.0) * 100) >= 5.0;
               }).length,
-    high:     games.filter(g => {
-                const acts = ['adv_3_5','adv_4_5','adv_5_5'].map(k => parseAction(g.action_matrix[k]));
-                return acts.some(a => a.conf === 'HIGH');
-              }).length,
-    moderate: games.filter(g => {
-                const acts = ['adv_3_5','adv_4_5','adv_5_5'].map(k => parseAction(g.action_matrix[k]));
-                return acts.some(a => a.conf === 'MODERATE') && !acts.some(a => a.conf === 'HIGH');
-              }).length,
+    strategy: countGkCategory(games, 'High-Value Strategy'),
+    confidence: countGkCategory(games, 'High-Confidence'),
+    quarantined: countGkCategory(games, 'Quarantined'),
   };
 
   const filterItems = [
     { key: 'priority', label: 'Priority Games', dot: 'dot-priority', count: counts.priority },
     { key: 'weather',  label: 'Extreme Weather', dot: 'dot-weather',  count: counts.weather },
   ];
-  const actionItems = [
-    { key: 'over',  label: 'Bet OVER',  dot: 'dot-over',  count: counts.over },
-    { key: 'under', label: 'Bet UNDER', dot: 'dot-under', count: counts.under },
-    { key: 'skip',  label: 'Skip Only', dot: 'dot-skip',  count: counts.skip },
-  ];
-  const confItems = [
-    { key: 'high',     label: 'HIGH',     dot: 'dot-high', count: counts.high },
-    { key: 'moderate', label: 'MODERATE', dot: 'dot-mod',  count: counts.moderate },
+  const gkItems = [
+    { key: 'strategy',  label: 'High-Value Strategy', dot: 'dot-over', count: counts.strategy },
+    { key: 'confidence', label: 'High-Confidence', dot: 'dot-high', count: counts.confidence },
+    { key: 'quarantined', label: 'Quarantined (Error)', dot: 'dot-skip', count: counts.quarantined },
   ];
 
   const renderItem = (item) => (
@@ -406,12 +365,8 @@ function Sidebar({ filters, onToggle, games }) {
         <div className="filter-group">{filterItems.map(renderItem)}</div>
       </div>
       <div className="sidebar-section">
-        <div className="sidebar-label">Action</div>
-        <div className="filter-group">{actionItems.map(renderItem)}</div>
-      </div>
-      <div className="sidebar-section">
-        <div className="sidebar-label">Confidence</div>
-        <div className="filter-group">{confItems.map(renderItem)}</div>
+        <div className="sidebar-label">Gatekeeper Engine</div>
+        <div className="filter-group">{gkItems.map(renderItem)}</div>
       </div>
     </aside>
   );
@@ -428,8 +383,7 @@ export default function App() {
   const [error, setError]       = useState(null);
   const [filters, setFilters]   = useState({
     priority: false, weather: false,
-    over: false, under: false, skip: false,
-    high: false, moderate: false,
+    strategy: false, confidence: false, quarantined: false
   });
 
   // Load dates index
@@ -470,31 +424,23 @@ export default function App() {
     if (!anyActive) return allGames;
     return allGames.filter(game => {
       const { isPriority, reasons } = classifyGame(game);
-      const acts = ['adv_3_5','adv_4_5','adv_5_5'].map(k => parseAction(game.action_matrix[k]));
-      const hasType = (t) => acts.some(a => a.type === t);
-      const hasConf = (c) => acts.some(a => a.conf === c);
       const isWeather = game.environment.effective_pf && Math.abs((game.environment.effective_pf - 1.0) * 100) >= 5.0;
-      const allSkip = acts.every(a => a.type === 'skip');
+      const cat = game.gatekeeper_logic?.category;
 
       if (filters.priority  && !isPriority) return false;
       if (filters.weather   && !isWeather)  return false;
-      if (filters.over      && !hasType('bet-over'))  return false;
-      if (filters.under     && !hasType('bet-under')) return false;
-      if (filters.skip      && !allSkip) return false;
-      if (filters.high      && !hasConf('HIGH')) return false;
-      if (filters.moderate  && !hasConf('MODERATE')) return false;
+      if (filters.strategy  && cat !== 'High-Value Strategy') return false;
+      if (filters.confidence && cat !== 'High-Confidence') return false;
+      if (filters.quarantined && cat !== 'Quarantined') return false;
       return true;
     });
   }, [allGames, filters, anyActive]);
 
   // Stats
   const priorityGames = allGames.filter(g => classifyGame(g).isPriority);
-  const overCount     = countActionType(allGames, 'bet-over');
-  const underCount    = countActionType(allGames, 'bet-under');
-  const skipCount     = allGames.filter(g => {
-    const acts = ['adv_3_5','adv_4_5','adv_5_5'].map(k => parseAction(g.action_matrix[k]));
-    return acts.every(a => a.type === 'skip');
-  }).length;
+  const stratCount    = countGkCategory(allGames, 'High-Value Strategy');
+  const confCount     = countGkCategory(allGames, 'High-Confidence');
+  const quarCount     = countGkCategory(allGames, 'Quarantined');
 
   const currentDateObj = dates.find(d => d.date === selectedDate);
 
@@ -505,7 +451,7 @@ export default function App() {
         <div className="header-logo">
           <span className="logo-icon">⚾</span>
           <h1>Baseball F5 Analytics</h1>
-          <span className="badge-v3">V3</span>
+          <span className="badge-v3">V4 Gatekeeper</span>
         </div>
 
         <div className="header-controls">
@@ -525,23 +471,23 @@ export default function App() {
       {!loading && !error && (
         <div className="stats-bar">
           <span className="stat-chip chip-total">
-            <span className="chip-num">{allGames.length}</span> Games
+            <span className="chip-num">{allGames.length}</span> Matchups
           </span>
           <span className="stat-chip chip-priority">
             🚨 <span className="chip-num">{priorityGames.length}</span> Priority
           </span>
           <span className="stat-chip chip-over">
-            🔥 <span className="chip-num">{overCount}</span> Bet OVER
+            🎯 <span className="chip-num">{stratCount}</span> Strategy
           </span>
           <span className="stat-chip chip-under">
-            🧊 <span className="chip-num">{underCount}</span> Bet UNDER
+            💎 <span className="chip-num">{confCount}</span> Confidence
           </span>
           <span className="stat-chip chip-skip">
-            ⬜ <span className="chip-num">{skipCount}</span> Skip
+            🚫 <span className="chip-num">{quarCount}</span> Quarantined
           </span>
           {anyActive && (
             <span className="stat-chip chip-total" style={{ cursor: 'pointer', borderColor: 'var(--blue)', color: 'var(--blue)' }}
-              onClick={() => setFilters({ priority: false, weather: false, over: false, under: false, skip: false, high: false, moderate: false })}>
+              onClick={() => setFilters({ priority: false, weather: false, strategy: false, confidence: false, quarantined: false })}>
               ✕ Clear Filters ({filtered.length} shown)
             </span>
           )}

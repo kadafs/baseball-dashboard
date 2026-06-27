@@ -896,3 +896,121 @@ body {
 @media (max-width: 480px) {
   .form-banner { flex-direction: column; align-items: flex-start; }
 }
+
+/* ── V4 Gatekeeper Engine ─────────────────────────────────────── */
+.gatekeeper-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  padding: 12px;
+  margin-top: 16px;
+  background: var(--bg-1);
+}
+
+.gatekeeper-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--border-1);
+  padding-bottom: 8px;
+  margin-bottom: 4px;
+}
+
+.gatekeeper-icon {
+  font-size: 1.1rem;
+}
+
+.gatekeeper-category {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-1);
+}
+
+.gatekeeper-reason {
+  font-size: 0.75rem;
+  color: var(--text-2);
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.gatekeeper-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(0,0,0,0.2);
+  border-radius: var(--radius-sm);
+  padding: 8px;
+}
+
+.gatekeeper-line-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+}
+
+.gk-line {
+  font-weight: 700;
+  color: var(--text-2);
+  width: 45px;
+}
+
+.gk-action {
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+}
+
+.gk-skip {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ccc;
+}
+
+.gk-bet {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.gk-reason {
+  color: var(--text-3);
+  font-size: 0.7rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
+/* Category Variants */
+.gatekeeper-quarantined {
+  border-left: 3px solid var(--red);
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.05) 0%, transparent 100%);
+}
+
+.gatekeeper-quarantined .gatekeeper-category {
+  color: var(--red);
+}
+
+.gatekeeper-strategy {
+  border-left: 3px solid var(--blue);
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.05) 0%, transparent 100%);
+}
+
+.gatekeeper-strategy .gatekeeper-category {
+  color: var(--blue);
+}
+
+.gatekeeper-confidence {
+  border-left: 3px solid var(--green);
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%);
+}
+
+.gatekeeper-confidence .gatekeeper-category {
+  color: var(--green);
+}
+
