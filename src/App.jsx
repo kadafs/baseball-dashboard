@@ -317,6 +317,9 @@ function GameCard({ game }) {
 // Sidebar
 // ─────────────────────────────────────────────
 function Sidebar({ filters, onToggle, games }) {
+  const [showHighlight, setShowHighlight] = useState(false);
+  const [showGatekeeper, setShowGatekeeper] = useState(false);
+
   const counts = {
     priority: games.filter(g => classifyGame(g).isPriority).length,
     weather:  games.filter(g => {
@@ -353,12 +356,26 @@ function Sidebar({ filters, onToggle, games }) {
   return (
     <aside className="sidebar">
       <div className="sidebar-section">
-        <div className="sidebar-label">Highlight</div>
-        <div className="filter-group">{filterItems.map(renderItem)}</div>
+        <div 
+          className="sidebar-label" 
+          onClick={() => setShowHighlight(!showHighlight)}
+          style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+        >
+          <span>Highlight</span>
+          <span style={{ fontSize: '0.7rem', opacity: 0.7 }}>{showHighlight ? '▲' : '▼'}</span>
+        </div>
+        {showHighlight && <div className="filter-group">{filterItems.map(renderItem)}</div>}
       </div>
       <div className="sidebar-section">
-        <div className="sidebar-label">Gatekeeper Engine</div>
-        <div className="filter-group">{gkItems.map(renderItem)}</div>
+        <div 
+          className="sidebar-label" 
+          onClick={() => setShowGatekeeper(!showGatekeeper)}
+          style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+        >
+          <span>Gatekeeper Engine</span>
+          <span style={{ fontSize: '0.7rem', opacity: 0.7 }}>{showGatekeeper ? '▲' : '▼'}</span>
+        </div>
+        {showGatekeeper && <div className="filter-group">{gkItems.map(renderItem)}</div>}
       </div>
     </aside>
   );
