@@ -50,6 +50,8 @@ function countGkCategory(games, category) {
 // Sub-components
 // ─────────────────────────────────────────────
 function GatekeeperCell({ logic }) {
+  const [isOpen, setIsOpen] = React.useState(false);
+
   if (!logic || logic.category === "No Edge") return null;
 
   let bgClass = "gatekeeper-neutral";
@@ -66,23 +68,41 @@ function GatekeeperCell({ logic }) {
     icon = "💎";
   }
 
+  const hasDetails = logic.reason || (logic.lines && Object.keys(logic.lines).length > 0);
+
   return (
     <div className={`gatekeeper-cell ${bgClass}`}>
-      <div className="gatekeeper-header">
-        <span className="gatekeeper-icon">{icon}</span>
-        <span className="gatekeeper-category">{logic.category}</span>
+      <div 
+        className="gatekeeper-header" 
+        onClick={() => hasDetails && setIsOpen(!isOpen)}
+        style={{ cursor: hasDetails ? 'pointer' : 'default', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+      >
+        <div>
+          <span className="gatekeeper-icon">{icon}</span>
+          <span className="gatekeeper-category">{logic.category}</span>
+        </div>
+        {hasDetails && (
+          <span style={{ fontSize: '0.75rem', opacity: 0.7, fontWeight: 600 }}>
+            {isOpen ? '▲ HIDE' : '▼ VIEW'}
+          </span>
+        )}
       </div>
-      {logic.reason && <div className="gatekeeper-reason">{logic.reason}</div>}
       
-      {logic.lines && Object.keys(logic.lines).length > 0 && (
-        <div className="gatekeeper-lines">
-          {Object.entries(logic.lines).map(([line, info]) => (
-            <div key={line} className="gatekeeper-line-row">
-              <span className="gk-line">Line {line}:</span>
-              <span className={`gk-action ${info.action.includes('Skip') ? 'gk-skip' : 'gk-bet'}`}>{info.action}</span>
-              <span className="gk-reason">{info.reason}</span>
+      {isOpen && (
+        <div className="gatekeeper-details" style={{ marginTop: '0.75rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '0.75rem' }}>
+          {logic.reason && <div className="gatekeeper-reason" style={{ marginBottom: '0.5rem' }}>{logic.reason}</div>}
+          
+          {logic.lines && Object.keys(logic.lines).length > 0 && (
+            <div className="gatekeeper-lines">
+              {Object.entries(logic.lines).map(([line, info]) => (
+                <div key={line} className="gatekeeper-line-row">
+                  <span className="gk-line">Line {line}:</span>
+                  <span className={`gk-action ${info.action.includes('Skip') ? 'gk-skip' : 'gk-bet'}`}>{info.action}</span>
+                  <span className="gk-reason">{info.reason}</span>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
       )}
     </div>
@@ -266,12 +286,7 @@ function GameCard({ game }) {
             <span className="proj-label">MC F5</span>
             <span className="proj-value">{p.mc_f5}</span>
           </div>
-          {p.consensus_f5 != null && (
-            <div className="proj-cell consensus-cell">
-              <span className="proj-label">Consensus</span>
-              <span className="proj-value highlighted">{p.consensus_f5}</span>
-            </div>
-          )}
+          {/* Consensus removed */}
           <div className="proj-cell">
             <span className="proj-label">Late Inn</span>
             <span className="proj-value">{p.mc_late}</span>
