@@ -72,19 +72,15 @@ function GatekeeperCell({ logic }) {
         <span className="gatekeeper-icon">{icon}</span>
         <span className="gatekeeper-category">{logic.category}</span>
       </div>
-      {logic.reason && <div className="gatekeeper-reason">{logic.reason}</div>}
-      
-      {logic.lines && Object.keys(logic.lines).length > 0 && (
+      {logic.action && (
         <div className="gatekeeper-lines">
-          {Object.entries(logic.lines).map(([line, info]) => (
-            <div key={line} className="gatekeeper-line-row">
-              <span className="gk-line">Line {line}:</span>
-              <span className={`gk-action ${info.action.includes('Skip') ? 'gk-skip' : 'gk-bet'}`}>{info.action}</span>
-              <span className="gk-reason">{info.reason}</span>
-            </div>
-          ))}
+          <div className="gatekeeper-line-row">
+            <span className={`gk-action ${logic.action.includes('SKIP') ? 'gk-skip' : 'gk-bet'}`}>{logic.action}</span>
+            {logic.odds && <span className="gk-line" style={{marginLeft: '8px'}}>@{logic.odds.toFixed(2)}</span>}
+          </div>
         </div>
       )}
+      {logic.reason && <div className="gatekeeper-reason">{logic.reason}</div>}
     </div>
   );
 }
