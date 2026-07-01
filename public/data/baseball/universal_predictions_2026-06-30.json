@@ -1,0 +1,107 @@
+{
+    "date": "06/30/2026",
+    "mode": "confirmed",
+    "total_predictions": 1,
+    "predictions": [
+        {
+            "away_team": "New York Mets",
+            "home_team": "Toronto Blue Jays",
+            "pitchers": {
+                "away": {
+                    "name": "Nolan McLean",
+                    "hand": "R",
+                    "fip": 2.97
+                },
+                "home": {
+                    "name": "Kevin Gausman",
+                    "hand": "R",
+                    "fip": 2.99
+                }
+            },
+            "environment": {
+                "venue": "Rogers Centre",
+                "park_factor": 0.97,
+                "weather": {
+                    "temp": 72,
+                    "wind_mph": 8,
+                    "wind_dir": "Out",
+                    "wind_lateral": null,
+                    "is_indoor": false,
+                    "rain_pct": 0,
+                    "temp_fatigue_scaler": 1.0,
+                    "temp_multiplier": 1.003,
+                    "wind_multiplier": 1.022,
+                    "weather_multiplier": 1.0251,
+                    "weather_label": "72F | 8 MPH Out | Weather: +2.5%"
+                },
+                "effective_pf": 0.9943,
+                "umpire": {
+                    "name": "Sean Barber",
+                    "profile": {
+                        "games_called": 22.1,
+                        "raw_k_mod": 0.9537,
+                        "raw_bb_mod": 1.2006,
+                        "last_updated": "2026-06-29"
+                    }
+                }
+            },
+            "lineups_status": "Confirmed",
+            "predictions": {
+                "top_down_f5": 4.03,
+                "mc_f5": 4.21,
+                "mc_f5_away": 2.22,
+                "mc_f5_home": 1.98,
+                "mc_late": 2.74,
+                "mc_full_game": 6.94,
+                "td_clamp_applied": false,
+                "away_f5_form": {
+                    "factor": 0.775,
+                    "raw_avg": 0.4,
+                    "games_used": 5,
+                    "games_raw": [
+                        0,
+                        1,
+                        0,
+                        1,
+                        0,
+                        4
+                    ]
+                },
+                "home_f5_form": {
+                    "factor": 0.775,
+                    "raw_avg": 1.0,
+                    "games_used": 5,
+                    "games_raw": [
+                        2,
+                        0,
+                        2,
+                        0,
+                        3,
+                        1
+                    ]
+                },
+                "form_factor": "Not implemented"
+            },
+            "probabilities": {
+                "under_3_5": 0.482,
+                "under_4_5": 0.608,
+                "under_5_5": 0.707,
+                "full_over_7_5": 0.393,
+                "full_over_8_5": 0.264,
+                "full_over_9_5": 0.164
+            },
+            "action_matrix": {
+                "adv_3_5": "Skip",
+                "adv_4_5": "Bet **UNDER** (HIGH)",
+                "adv_5_5": "Bet **UNDER** (HIGH)"
+            },
+            "version": "v4",
+            "gatekeeper_logic": {
+                "category": "High-Confidence",
+                "action": "BET F5 UNDER",
+                "reason": "Engine Convergence: Models perfectly aligned with measurable market edge.",
+                "odds": 1.85
+            }
+        }
+    ]
+}
