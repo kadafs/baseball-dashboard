@@ -35,7 +35,7 @@
   --radius-xl:  24px;
 
   --sidebar-w:  260px;
-  --header-h:   68px;
+  --header-h:   80px;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -86,13 +86,13 @@ body {
 }
 
 .logo-img {
-  height: 98px;
+  height: 115px;
   width: auto;
   object-fit: contain;
   display: block;
   position: absolute;
   left: 0;
-  top: 55%;
+  top: 58%;
   transform: translateY(-50%);
   z-index: 10;
   mix-blend-mode: screen;
