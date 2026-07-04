@@ -453,13 +453,31 @@ export default function App() {
     <>
       {/* ── Header ── */}
       <header className="header">
-        <div className="header-logo">
-          <span className="logo-icon">⚾</span>
-          <h1>Baseball F5 Analytics</h1>
-          <span className="badge-v3">V4 Gatekeeper</span>
+        <div className="header-logo-container">
+          <a href="/" className="logo">
+            <img
+              src="/darklogo.png"
+              alt="blowrout — Mathematical Baseball Predictions"
+              className="logo-img desktop-logo"
+            />
+            <img
+              src="/favicon_glow.png"
+              alt="blowrout — Mathematical Baseball Predictions"
+              className="logo-img mobile-logo"
+            />
+          </a>
         </div>
 
         <div className="header-controls">
+          <a 
+            href="https://sports-analytics-rose.vercel.app/" 
+            className="header-badge" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            style={{ marginRight: 6, textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}
+          >
+            SPORTS ANALYTICS 🏀
+          </a>
           <select
             className="date-select"
             value={selectedDate}
