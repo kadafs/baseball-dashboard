@@ -471,12 +471,13 @@ export default function App() {
         <div className="header-controls">
           <a 
             href="https://sports-analytics-rose.vercel.app/" 
-            className="header-badge" 
+            className="header-badge cross-link-badge" 
             target="_blank" 
             rel="noopener noreferrer" 
             style={{ marginRight: 6, textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}
           >
-            SPORTS ANALYTICS 🏀
+            <span className="desktop-text">BASKETBALL 🏀</span>
+            <span className="mobile-icon">🏀</span>
           </a>
           <select
             className="date-select"

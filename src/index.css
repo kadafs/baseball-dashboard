@@ -71,21 +71,29 @@ body {
 .header-logo-container {
   display: flex;
   align-items: center;
+  position: relative;
   height: var(--header-h);
+  width: 180px;
   flex-shrink: 0;
 }
 
 .logo {
   display: flex;
   align-items: center;
+  position: relative;
   height: 100%;
+  width: 100%;
 }
 
 .logo-img {
-  height: 48px;
+  height: 98px;
   width: auto;
   object-fit: contain;
   display: block;
+  position: absolute;
+  left: 0;
+  top: 55%;
+  transform: translateY(-50%);
   z-index: 10;
   mix-blend-mode: screen;
 }
@@ -96,6 +104,14 @@ body {
 
 .mobile-logo {
   display: none;
+}
+
+.cross-link-badge .mobile-icon {
+  display: none;
+}
+
+.cross-link-badge .desktop-text {
+  display: inline;
 }
 
 /* Header cross-linking badge button */
@@ -813,6 +829,17 @@ body {
   .mobile-logo {
     display: block !important;
     height: 32px !important;
+    position: static !important;
+    transform: none !important;
+  }
+  /* Swap text for icon on mobile cross-link button */
+  .cross-link-badge .mobile-icon {
+    display: inline !important;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .cross-link-badge .desktop-text {
+    display: none !important;
   }
   .header-controls {
     margin-left: 0 !important;
