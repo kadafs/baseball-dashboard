@@ -71,31 +71,23 @@ body {
 .header-logo-container {
   display: flex;
   align-items: center;
-  position: relative;
   height: var(--header-h);
-  width: 180px;
   flex-shrink: 0;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  position: relative;
   height: 100%;
-  width: 100%;
 }
 
 .logo-img {
-  height: 98px;
+  height: 48px;
   width: auto;
   object-fit: contain;
   display: block;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
   z-index: 10;
+  mix-blend-mode: screen;
 }
 
 .desktop-logo {
@@ -821,9 +813,6 @@ body {
   .mobile-logo {
     display: block !important;
     height: 32px !important;
-    position: static !important;
-    transform: none !important;
-    margin-top: 0px !important;
   }
   .header-controls {
     margin-left: 0 !important;
