@@ -58,9 +58,7 @@ body {
   top: 0;
   z-index: 100;
   height: var(--header-h);
-  background: rgba(8, 12, 22, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: #080c16;
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
