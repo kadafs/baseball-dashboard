@@ -69,31 +69,23 @@ body {
 .header-logo-container {
   display: flex;
   align-items: center;
-  position: relative;
   height: var(--header-h);
-  width: 180px;
   flex-shrink: 0;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  position: relative;
   height: 100%;
-  width: 100%;
 }
 
 .logo-img {
-  height: 115px;
+  height: 72px;
   width: auto;
   object-fit: contain;
   display: block;
-  position: absolute;
-  left: 0;
-  top: 58%;
-  transform: translateY(-50%);
   z-index: 10;
-  mix-blend-mode: screen;
+  mix-blend-mode: screen !important;
 }
 
 .desktop-logo {
@@ -827,8 +819,6 @@ body {
   .mobile-logo {
     display: block !important;
     height: 32px !important;
-    position: static !important;
-    transform: none !important;
   }
   /* Swap text for icon on mobile cross-link button */
   .cross-link-badge .mobile-icon {
