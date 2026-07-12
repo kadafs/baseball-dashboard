@@ -381,24 +381,39 @@ function Sidebar({ filters, onToggle, games }) {
 // App
 // ─────────────────────────────────────────────
 export default function App() {
-  const [dates, setDates]       = useState([]);
-  const [selectedDate, setDate] = useState('');
-  const [data, setData]         = useState(null);
-  const [loading, setLoading]   = useState(true);
-  const [error, setError]       = useState(null);
-  const [filters, setFilters]   = useState({
+  const [leaguesIndex, setLeaguesIndex] = useState({});  // { MLB: [{date}], AAA: [{date}], ... }
+  const [selectedLeague, setLeague]     = useState('MLB');
+  const [dates, setDates]               = useState([]);
+  const [selectedDate, setDate]         = useState('');
+  const [data, setData]                 = useState(null);
+  const [loading, setLoading]           = useState(true);
+  const [error, setError]               = useState(null);
+  const [filters, setFilters]           = useState({
     priority: false, weather: false,
     strategy: false, confidence: false, quarantined: false
   });
 
-  // Load dates index
+  // Load dates index — populates all league date lists
   useEffect(() => {
     fetch('/data/baseball/dates_index.json')
       .then(r => r.json())
       .then(d => {
-        if (d.dates?.length > 0) {
-          setDates(d.dates);
-          setDate(d.dates[0].date);
+        const index = d.leagues || {};
+        // Backward-compat: if no leagues key, treat flat dates as MLB
+        if (!d.leagues && d.dates?.length > 0) {
+          index['MLB'] = d.dates;
+        }
+        setLeaguesIndex(index);
+
+        // Pick a default league: prefer MLB, then first available
+        const availLeagues = Object.keys(index);
+        const defaultLeague = availLeagues.includes('MLB') ? 'MLB' : (availLeagues[0] || 'MLB');
+        setLeague(defaultLeague);
+
+        const leagueDates = index[defaultLeague] || [];
+        if (leagueDates.length > 0) {
+          setDates(leagueDates);
+          setDate(leagueDates[0].date);
         } else {
           setLoading(false);
           setError('No prediction data found.');
@@ -407,16 +422,36 @@ export default function App() {
       .catch(() => { setLoading(false); setError('Failed to load dates index.'); });
   }, []);
 
-  // Load prediction data
+  // When league changes, update dates list and reset date selection
+  useEffect(() => {
+    if (!leaguesIndex || Object.keys(leaguesIndex).length === 0) return;
+    const leagueDates = leaguesIndex[selectedLeague] || [];
+    setDates(leagueDates);
+    if (leagueDates.length > 0) {
+      setDate(leagueDates[0].date);
+    } else {
+      setDate('');
+      setData(null);
+      setLoading(false);
+      setError(`No data available for ${selectedLeague}.`);
+    }
+  }, [selectedLeague, leaguesIndex]);
+
+  // Load prediction data — uses league-prefixed filename when available
   useEffect(() => {
     if (!selectedDate) return;
     setLoading(true); setError(null); setData(null);
 
-    fetch(`/data/baseball/universal_predictions_${selectedDate}.json`)
-      .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+    // Try league-prefixed file first, fall back to legacy flat name
+    const leaguedUrl  = `/data/baseball/universal_predictions_${selectedLeague}_${selectedDate}.json`;
+    const legacyUrl   = `/data/baseball/universal_predictions_${selectedDate}.json`;
+
+    fetch(leaguedUrl)
+      .then(r => { if (!r.ok) throw new Error('try-legacy'); return r.json(); })
+      .catch(() => fetch(legacyUrl).then(r => { if (!r.ok) throw new Error(); return r.json(); }))
       .then(d => { setData(d); setLoading(false); })
-      .catch(() => { setLoading(false); setError(`Failed to load data for ${selectedDate}.`); });
-  }, [selectedDate, dates]);
+      .catch(() => { setLoading(false); setError(`No ${selectedLeague} data for ${selectedDate}.`); });
+  }, [selectedDate, selectedLeague]);
 
   const toggleFilter = (key) =>
     setFilters(f => ({ ...f, [key]: !f[key] }));
@@ -479,6 +514,23 @@ export default function App() {
             <span className="desktop-text">BASKETBALL 🏀</span>
             <span className="mobile-icon">🏀</span>
           </a>
+
+          {/* League switcher */}
+          {Object.keys(leaguesIndex).length > 1 && (
+            <div className="league-switcher" role="group" aria-label="League selector">
+              {Object.keys(leaguesIndex).sort().map(lg => (
+                <button
+                  key={lg}
+                  id={`league-tab-${lg}`}
+                  className={`league-tab${selectedLeague === lg ? ' active' : ''}`}
+                  onClick={() => { setLeague(lg); setFilters({ priority: false, weather: false, strategy: false, confidence: false, quarantined: false }); }}
+                >
+                  {lg}
+                </button>
+              ))}
+            </div>
+          )}
+
           <select
             className="date-select"
             value={selectedDate}
