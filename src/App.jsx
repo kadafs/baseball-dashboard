@@ -26,7 +26,7 @@ function classifyGame(game) {
   if (env.effective_pf) {
     const pct = (env.effective_pf - 1.0) * 100;
     if (Math.abs(pct) >= 5.0)
-      reasons.push({ label: `Weather ${pct > 0 ? '+' : ''}${pct.toFixed(1)}%`, type: 'weather-tag' });
+      reasons.push({ label: `Env ${pct > 0 ? '+' : ''}${pct.toFixed(1)}%`, type: 'weather-tag' });
   }
 
   // Priority flags
