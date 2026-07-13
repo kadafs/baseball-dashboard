@@ -23,10 +23,18 @@ function classifyGame(game) {
   const gk     = game.gatekeeper_logic;
   const reasons = [];
 
-  if (env.effective_pf) {
-    const pct = (env.effective_pf - 1.0) * 100;
-    if (Math.abs(pct) >= 5.0)
-      reasons.push({ label: `Env ${pct > 0 ? '+' : ''}${pct.toFixed(1)}%`, type: 'weather-tag' });
+  // New architecture: use env_display.signal (directional, qualitative)
+  // instead of effective_pf percentage (which distorted the pure core)
+  const envDisplay = env?.env_display;
+  if (envDisplay && envDisplay.signal !== 'NEUTRAL') {
+    const tagType = {
+      'STRONG_CONFIRM':    'env-strong-confirm',
+      'CONFIRM':           'env-confirm',
+      'CONTRADICT':        'env-contradict',
+      'STRONG_CONTRADICT': 'env-strong-contradict',
+    }[envDisplay.signal] || 'weather-tag';
+    const arrow = envDisplay.lean === 'OVER' ? '▲' : '▼';
+    reasons.push({ label: `ENV ${envDisplay.signal.replace(/_/g, ' ')} ${arrow}`, type: tagType });
   }
 
   // Priority flags
@@ -106,17 +114,33 @@ function ProbBar({ label, under }) {
 }
 
 function EnvironmentRow({ env, isPriority, reasons }) {
-  const weather = env.weather;
+  const weather    = env.weather;
+  const envDisplay = env.env_display;
   const chips = [];
 
-  if (isPriority && reasons.some(r => r.type === 'weather-tag')) {
-    const pct = ((env.effective_pf - 1.0) * 100).toFixed(1);
+  // Layer 2: ENV signal chip — replaces old ±% effective_pf badge
+  if (envDisplay && envDisplay.signal !== 'NEUTRAL') {
+    const sigClass = {
+      'STRONG_CONFIRM':    'env-strong-confirm',
+      'CONFIRM':           'env-confirm',
+      'CONTRADICT':        'env-contradict',
+      'STRONG_CONTRADICT': 'env-strong-contradict',
+    }[envDisplay.signal] || 'extreme-weather';
+    const icon = envDisplay.lean === 'OVER' ? '📈' : '📉';
+    const parts = [];
+    if (envDisplay.park_flag    !== 'NEUTRAL') parts.push(`Park: ${envDisplay.park_flag}`);
+    if (envDisplay.weather_flag !== 'NEUTRAL') parts.push(`Wx: ${envDisplay.weather_flag}`);
+    if (envDisplay.umpire_flag  !== 'NEUTRAL') parts.push(`Ump: ${envDisplay.umpire_flag}`);
+    const tooltip = parts.join(' | ') || envDisplay.signal;
     chips.push(
-      <span key="w" className="env-chip extreme-weather">
-        🌤 {pct > 0 ? `+${pct}` : pct}% Weather
+      <span key="env-sig" className={`env-chip ${sigClass}`} title={tooltip}>
+        {icon} {envDisplay.signal.replace(/_/g, ' ')}
       </span>
     );
-  } else if (weather) {
+  }
+
+  // Weather chip — now purely informational (not applied to core model)
+  if (weather) {
     let windClass = '';
     if (weather.wind_dir === 'Out') windClass = 'wind-out';
     else if (weather.wind_dir === 'In') windClass = 'wind-in';

@@ -568,6 +568,31 @@ body {
   background: rgba(139,92,246,0.08);
   color: var(--purple);
 }
+/* ENV signal chips — Layer 2 directional confidence */
+.env-chip.env-strong-confirm {
+  border-color: rgba(16,185,129,0.6);
+  background: rgba(16,185,129,0.15);
+  color: #34d399;
+  font-weight: 700;
+  box-shadow: 0 0 8px rgba(16,185,129,0.25);
+}
+.env-chip.env-confirm {
+  border-color: rgba(16,185,129,0.35);
+  background: rgba(16,185,129,0.08);
+  color: var(--green);
+}
+.env-chip.env-contradict {
+  border-color: rgba(245,158,11,0.4);
+  background: var(--amber-dim);
+  color: var(--amber);
+}
+.env-chip.env-strong-contradict {
+  border-color: rgba(239,68,68,0.45);
+  background: var(--red-dim);
+  color: var(--red);
+  font-weight: 700;
+  box-shadow: 0 0 8px rgba(239,68,68,0.2);
+}
 
 /* ── Projections Grid ───────────────────────────────────────── */
 .proj-grid {
@@ -764,6 +789,29 @@ body {
 .p-tag.weather-tag { border-color: var(--amber); color: var(--amber); background: var(--amber-dim); }
 .p-tag.edge-tag { border-color: var(--green); color: var(--green); background: var(--green-dim); }
 .p-tag.veto-tag { border-color: var(--red); color: var(--red); background: rgba(239, 68, 68, 0.1); }
+/* ENV signal priority tags — new architecture */
+.p-tag.env-strong-confirm {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-dim);
+  box-shadow: 0 0 8px rgba(16,185,129,0.3);
+}
+.p-tag.env-confirm {
+  border-color: rgba(16,185,129,0.5);
+  color: var(--green);
+  background: rgba(16,185,129,0.08);
+}
+.p-tag.env-contradict {
+  border-color: var(--amber);
+  color: var(--amber);
+  background: var(--amber-dim);
+}
+.p-tag.env-strong-contradict {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--red-dim);
+  box-shadow: 0 0 8px rgba(239,68,68,0.2);
+}
 
 /* ── States ─────────────────────────────────────────────────── */
 .loading-state {
