@@ -593,6 +593,13 @@ body {
   font-weight: 700;
   box-shadow: 0 0 8px rgba(239,68,68,0.2);
 }
+.env-chip.env-neutral {
+  border-color: var(--border);
+  background: rgba(255,255,255,0.03);
+  color: var(--text-3);
+  font-size: 0.67rem;
+  opacity: 0.75;
+}
 
 /* ── Projections Grid ───────────────────────────────────────── */
 .proj-grid {

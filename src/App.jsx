@@ -118,28 +118,37 @@ function EnvironmentRow({ env, isPriority, reasons }) {
   const envDisplay = env.env_display;
   const chips = [];
 
-  // Layer 2: ENV signal chip — replaces old ±% effective_pf badge
-  if (envDisplay && envDisplay.signal !== 'NEUTRAL') {
+  // Layer 2: ENV signal chip — always shown to reflect pure core architecture
+  const envSignal  = envDisplay?.signal || 'NEUTRAL';
+  if (envSignal !== 'NEUTRAL') {
     const sigClass = {
       'STRONG_CONFIRM':    'env-strong-confirm',
       'CONFIRM':           'env-confirm',
       'CONTRADICT':        'env-contradict',
       'STRONG_CONTRADICT': 'env-strong-contradict',
-    }[envDisplay.signal] || 'extreme-weather';
+    }[envSignal] || 'extreme-weather';
     const icon = envDisplay.lean === 'OVER' ? '📈' : '📉';
     const parts = [];
     if (envDisplay.park_flag    !== 'NEUTRAL') parts.push(`Park: ${envDisplay.park_flag}`);
     if (envDisplay.weather_flag !== 'NEUTRAL') parts.push(`Wx: ${envDisplay.weather_flag}`);
     if (envDisplay.umpire_flag  !== 'NEUTRAL') parts.push(`Ump: ${envDisplay.umpire_flag}`);
-    const tooltip = parts.join(' | ') || envDisplay.signal;
+    const tooltip = parts.join(' | ') || envSignal;
     chips.push(
       <span key="env-sig" className={`env-chip ${sigClass}`} title={tooltip}>
-        {icon} {envDisplay.signal.replace(/_/g, ' ')}
+        {icon} {envSignal.replace(/_/g, ' ')}
+      </span>
+    );
+  } else {
+    // Neutral — show muted indicator so the Layer 2 analysis is always visible
+    const pf   = env.park_factor || 1.0;
+    const pfStr = pf !== 1.0 ? ` PF${pf > 1 ? '+' : ''}${((pf - 1)*100).toFixed(0)}%` : '';
+    chips.push(
+      <span key="env-neutral" className="env-chip env-neutral" title="ENV filters: all within normal thresholds">
+        🔘 ENV NEUTRAL{pfStr}
       </span>
     );
   }
 
-  // Weather chip — now purely informational (not applied to core model)
   if (weather) {
     let windClass = '';
     if (weather.wind_dir === 'Out') windClass = 'wind-out';
@@ -343,8 +352,8 @@ function Sidebar({ filters, onToggle, games }) {
   const counts = {
     priority: games.filter(g => classifyGame(g).isPriority).length,
     weather:  games.filter(g => {
-                const env = g.environment;
-                return env.effective_pf && Math.abs((env.effective_pf - 1.0) * 100) >= 5.0;
+                const sig = g.environment?.env_display?.signal;
+                return sig && sig !== 'NEUTRAL';
               }).length,
     strategy: countGkCategory(games, 'High-Value Strategy'),
     confidence: countGkCategory(games, 'High-Confidence'),
@@ -352,8 +361,8 @@ function Sidebar({ filters, onToggle, games }) {
   };
 
   const filterItems = [
-    { key: 'priority', label: 'Priority Games', dot: 'dot-priority', count: counts.priority },
-    { key: 'weather',  label: 'Extreme Weather', dot: 'dot-weather',  count: counts.weather },
+    { key: 'priority', label: 'Priority Games',     dot: 'dot-priority', count: counts.priority },
+    { key: 'weather',  label: 'ENV Signal Active',  dot: 'dot-weather',  count: counts.weather },
   ];
   const gkItems = [
     { key: 'strategy',  label: 'High-Value Strategy', dot: 'dot-over', count: counts.strategy },
