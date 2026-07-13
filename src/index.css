@@ -568,6 +568,12 @@ body {
   background: rgba(139,92,246,0.08);
   color: var(--purple);
 }
+.env-chip.umpire-active {
+  border-color: rgba(139,92,246,0.55);
+  background: rgba(139,92,246,0.14);
+  color: #a78bfa;
+  font-weight: 600;
+}
 /* ENV signal chips — Layer 2 directional confidence */
 .env-chip.env-strong-confirm {
   border-color: rgba(16,185,129,0.6);
@@ -593,13 +599,29 @@ body {
   font-weight: 700;
   box-shadow: 0 0 8px rgba(239,68,68,0.2);
 }
-.env-chip.env-neutral {
+/* ENV signal chips — all subtle in the env-row (priority tags carry the color) */
+.env-chip.env-subtle {
   border-color: var(--border);
   background: rgba(255,255,255,0.03);
   color: var(--text-3);
   font-size: 0.67rem;
   opacity: 0.75;
 }
+.env-chip.env-subtle-contradict {
+  border-color: rgba(245,158,11,0.18);
+  background: rgba(245,158,11,0.04);
+  color: var(--text-3);
+  font-size: 0.67rem;
+  opacity: 0.85;
+}
+.env-chip.env-subtle-confirm {
+  border-color: rgba(16,185,129,0.18);
+  background: rgba(16,185,129,0.04);
+  color: var(--text-3);
+  font-size: 0.67rem;
+  opacity: 0.85;
+}
+/* Keep bold classes only for p-tag priority badges at the top of cards */
 
 /* ── Projections Grid ───────────────────────────────────────── */
 .proj-grid {

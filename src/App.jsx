@@ -118,37 +118,35 @@ function EnvironmentRow({ env, isPriority, reasons }) {
   const envDisplay = env.env_display;
   const chips = [];
 
-  // Layer 2: ENV signal chip — always shown to reflect pure core architecture
-  const envSignal  = envDisplay?.signal || 'NEUTRAL';
-  if (envSignal !== 'NEUTRAL') {
-    const sigClass = {
-      'STRONG_CONFIRM':    'env-strong-confirm',
-      'CONFIRM':           'env-confirm',
-      'CONTRADICT':        'env-contradict',
-      'STRONG_CONTRADICT': 'env-strong-contradict',
-    }[envSignal] || 'extreme-weather';
-    const icon = envDisplay.lean === 'OVER' ? '📈' : '📉';
+  // Layer 2: ENV signal chip — always shown, always subtle in the env-row
+  // (priority tags at top of card carry the color weight)
+  const envSignal = envDisplay?.signal || 'NEUTRAL';
+  const pf        = env.park_factor || 1.0;
+  const pfStr     = pf !== 1.0 ? ` PF${pf > 1 ? '+' : ''}${((pf - 1) * 100).toFixed(0)}%` : '';
+
+  if (envSignal === 'NEUTRAL') {
+    chips.push(
+      <span key="env-neutral" className="env-chip env-subtle" title="ENV filters: all within normal thresholds">
+        🔘 ENV NEUTRAL{pfStr}
+      </span>
+    );
+  } else {
+    // Non-neutral: subtle tint (amber for contradict, green for confirm) — NOT bold
+    const tintClass = envSignal.includes('CONTRADICT') ? 'env-subtle-contradict' : 'env-subtle-confirm';
+    const arrow = envDisplay.lean === 'OVER' ? '▲' : '▼';
     const parts = [];
     if (envDisplay.park_flag    !== 'NEUTRAL') parts.push(`Park: ${envDisplay.park_flag}`);
     if (envDisplay.weather_flag !== 'NEUTRAL') parts.push(`Wx: ${envDisplay.weather_flag}`);
     if (envDisplay.umpire_flag  !== 'NEUTRAL') parts.push(`Ump: ${envDisplay.umpire_flag}`);
     const tooltip = parts.join(' | ') || envSignal;
     chips.push(
-      <span key="env-sig" className={`env-chip ${sigClass}`} title={tooltip}>
-        {icon} {envSignal.replace(/_/g, ' ')}
-      </span>
-    );
-  } else {
-    // Neutral — show muted indicator so the Layer 2 analysis is always visible
-    const pf   = env.park_factor || 1.0;
-    const pfStr = pf !== 1.0 ? ` PF${pf > 1 ? '+' : ''}${((pf - 1)*100).toFixed(0)}%` : '';
-    chips.push(
-      <span key="env-neutral" className="env-chip env-neutral" title="ENV filters: all within normal thresholds">
-        🔘 ENV NEUTRAL{pfStr}
+      <span key="env-sig" className={`env-chip ${tintClass}`} title={tooltip}>
+        🔘 {envSignal.replace(/_/g, ' ')} {arrow}{pfStr}
       </span>
     );
   }
 
+  // Weather chip — purely informational
   if (weather) {
     let windClass = '';
     if (weather.wind_dir === 'Out') windClass = 'wind-out';
@@ -160,16 +158,20 @@ function EnvironmentRow({ env, isPriority, reasons }) {
     );
   }
 
+  // Park factor chip — always shown
   chips.push(
     <span key="pf" className="env-chip">
       🏟 PF {env.park_factor}x
     </span>
   );
 
+  // Umpire chip — shows name + K-direction if flagged
   if (env.umpire) {
+    const umpFlag = envDisplay?.umpire_flag || 'NEUTRAL';
+    const umpDir  = umpFlag.includes('UNDER') ? ' ▼K' : umpFlag.includes('OVER') ? ' ▲K' : '';
     chips.push(
-      <span key="ump" className="env-chip umpire">
-        ⚖ {env.umpire.name}
+      <span key="ump" className={`env-chip ${umpFlag !== 'NEUTRAL' ? 'umpire-active' : 'umpire'}`}>
+        ⚖ {env.umpire.name}{umpDir}
       </span>
     );
   }
