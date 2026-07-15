@@ -543,18 +543,19 @@ export default function App() {
 
           {/* League switcher */}
           {Object.keys(leaguesIndex).length > 1 && (
-            <div className="league-switcher" role="group" aria-label="League selector">
+            <select
+              className="date-select"
+              value={selectedLeague}
+              onChange={e => {
+                setLeague(e.target.value);
+                setFilters({ priority: false, weather: false, strategy: false, confidence: false, quarantined: false });
+              }}
+              style={{ marginRight: '8px' }}
+            >
               {Object.keys(leaguesIndex).sort().map(lg => (
-                <button
-                  key={lg}
-                  id={`league-tab-${lg}`}
-                  className={`league-tab${selectedLeague === lg ? ' active' : ''}`}
-                  onClick={() => { setLeague(lg); setFilters({ priority: false, weather: false, strategy: false, confidence: false, quarantined: false }); }}
-                >
-                  {lg}
-                </button>
+                <option key={lg} value={lg}>{lg}</option>
               ))}
-            </div>
+            </select>
           )}
 
           <select
