@@ -55,11 +55,11 @@
             "lineups_status": "Generic",
             "predictions": {
                 "top_down_f5": 2.92,
-                "mc_f5": 3.22,
-                "mc_f5_away": 1.71,
+                "mc_f5": 3.16,
+                "mc_f5_away": 1.66,
                 "mc_f5_home": 1.5,
-                "mc_late": 2.07,
-                "mc_full_game": 5.28,
+                "mc_late": 2.06,
+                "mc_full_game": 5.22,
                 "td_clamp_applied": false,
                 "away_f5_form": {
                     "factor": 0.75
@@ -70,12 +70,12 @@
                 "form_factor": "Not implemented"
             },
             "probabilities": {
-                "under_3_5": 0.604,
-                "under_4_5": 0.735,
-                "under_5_5": 0.829,
-                "full_over_7_5": 0.164,
-                "full_over_8_5": 0.088,
-                "full_over_9_5": 0.043
+                "under_3_5": 0.625,
+                "under_4_5": 0.744,
+                "under_5_5": 0.822,
+                "full_over_7_5": 0.157,
+                "full_over_8_5": 0.083,
+                "full_over_9_5": 0.04
             },
             "action_matrix": {
                 "adv_3_5": "Skip",
@@ -135,11 +135,11 @@
             "lineups_status": "Generic",
             "predictions": {
                 "top_down_f5": 4.14,
-                "mc_f5": 4.18,
-                "mc_f5_away": 2.3,
-                "mc_f5_home": 1.88,
-                "mc_late": 2.06,
-                "mc_full_game": 6.24,
+                "mc_f5": 4.1,
+                "mc_f5_away": 2.35,
+                "mc_f5_home": 1.76,
+                "mc_late": 2.05,
+                "mc_full_game": 6.16,
                 "td_clamp_applied": false,
                 "away_f5_form": {
                     "factor": 0.75
@@ -150,12 +150,12 @@
                 "form_factor": "Not implemented"
             },
             "probabilities": {
-                "under_3_5": 0.467,
-                "under_4_5": 0.597,
-                "under_5_5": 0.716,
-                "full_over_7_5": 0.29,
-                "full_over_8_5": 0.179,
-                "full_over_9_5": 0.102
+                "under_3_5": 0.475,
+                "under_4_5": 0.614,
+                "under_5_5": 0.717,
+                "full_over_7_5": 0.278,
+                "full_over_8_5": 0.169,
+                "full_over_9_5": 0.095
             },
             "action_matrix": {
                 "adv_3_5": "Skip",
@@ -215,11 +215,11 @@
             "lineups_status": "Generic",
             "predictions": {
                 "top_down_f5": 5.8,
-                "mc_f5": 4.13,
-                "mc_f5_away": 2.07,
-                "mc_f5_home": 2.06,
-                "mc_late": 1.53,
-                "mc_full_game": 5.67,
+                "mc_f5": 4.04,
+                "mc_f5_away": 2.02,
+                "mc_f5_home": 2.02,
+                "mc_late": 1.42,
+                "mc_full_game": 5.46,
                 "td_clamp_applied": false,
                 "away_f5_form": {
                     "factor": 0.957
@@ -230,12 +230,12 @@
                 "form_factor": "Not implemented"
             },
             "probabilities": {
-                "under_3_5": 0.48,
-                "under_4_5": 0.61,
-                "under_5_5": 0.719,
-                "full_over_7_5": 0.211,
-                "full_over_8_5": 0.12,
-                "full_over_9_5": 0.063
+                "under_3_5": 0.484,
+                "under_4_5": 0.64,
+                "under_5_5": 0.743,
+                "full_over_7_5": 0.186,
+                "full_over_8_5": 0.103,
+                "full_over_9_5": 0.052
             },
             "action_matrix": {
                 "adv_3_5": "Skip",
@@ -295,11 +295,11 @@
             "lineups_status": "Generic",
             "predictions": {
                 "top_down_f5": 8.32,
-                "mc_f5": 4.79,
-                "mc_f5_away": 1.76,
-                "mc_f5_home": 3.03,
-                "mc_late": 2.84,
-                "mc_full_game": 7.63,
+                "mc_f5": 4.62,
+                "mc_f5_away": 1.75,
+                "mc_f5_home": 2.87,
+                "mc_late": 3.11,
+                "mc_full_game": 7.73,
                 "td_clamp_applied": false,
                 "away_f5_form": {
                     "factor": 0.929
@@ -310,12 +310,12 @@
                 "form_factor": "Not implemented"
             },
             "probabilities": {
-                "under_3_5": 0.396,
-                "under_4_5": 0.524,
-                "under_5_5": 0.626,
-                "full_over_7_5": 0.494,
-                "full_over_8_5": 0.355,
-                "full_over_9_5": 0.238
+                "under_3_5": 0.422,
+                "under_4_5": 0.537,
+                "under_5_5": 0.659,
+                "full_over_7_5": 0.509,
+                "full_over_8_5": 0.37,
+                "full_over_9_5": 0.251
             },
             "action_matrix": {
                 "adv_3_5": "Skip",
@@ -375,11 +375,11 @@
             "lineups_status": "Generic",
             "predictions": {
                 "top_down_f5": 6.81,
-                "mc_f5": 4.37,
-                "mc_f5_away": 2.41,
-                "mc_f5_home": 1.95,
+                "mc_f5": 4.26,
+                "mc_f5_away": 2.26,
+                "mc_f5_home": 2.0,
                 "mc_late": 1.35,
-                "mc_full_game": 5.71,
+                "mc_full_game": 5.61,
                 "td_clamp_applied": false,
                 "away_f5_form": {
                     "factor": 1.25
@@ -390,12 +390,12 @@
                 "form_factor": "Not implemented"
             },
             "probabilities": {
-                "under_3_5": 0.453,
-                "under_4_5": 0.578,
-                "under_5_5": 0.696,
-                "full_over_7_5": 0.218,
-                "full_over_8_5": 0.125,
-                "full_over_9_5": 0.066
+                "under_3_5": 0.472,
+                "under_4_5": 0.598,
+                "under_5_5": 0.705,
+                "full_over_7_5": 0.205,
+                "full_over_8_5": 0.115,
+                "full_over_9_5": 0.06
             },
             "action_matrix": {
                 "adv_3_5": "Skip",
