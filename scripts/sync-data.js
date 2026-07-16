@@ -26,6 +26,7 @@ try {
 
   const files = fs.readdirSync(dataDir).filter(f =>
     f.startsWith('universal_predictions_') && f.endsWith('.json') && f !== 'dates_index.json'
+    && !f.includes('_NPB_') && !f.includes('_KBO_')
   );
 
   if (files.length === 0) {
