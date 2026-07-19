@@ -295,7 +295,7 @@ function GameCard({ game }) {
           </div>
           <div className="proj-cell">
             <span className="proj-label">MC F5</span>
-            <span className="proj-value">{p.mc_f5}</span>
+            <span className="proj-value">{p.mc_f5} <span style={{fontSize: '0.75rem', color: '#888', fontWeight: 'normal'}}>({p.mc_f5_away?.toFixed(2)} | {p.mc_f5_home?.toFixed(2)})</span></span>
           </div>
           {p.consensus_f5 != null && (
             <div className="proj-cell consensus-cell">
